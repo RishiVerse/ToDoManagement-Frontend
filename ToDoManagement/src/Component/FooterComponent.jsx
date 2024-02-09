@@ -3,9 +3,12 @@ export const Footer = () => {
     <>
       <nav className="navbar bg-dark">
         <div className="container-fluid">
-          <a className="navbar-brand text-white" href="#">
+          <p
+            className="navbar-brand text-white"
+            style={{ textAlign: "center" , margin: "auto" }}
+          >
             All Rights Reserved 2024
-          </a>
+          </p>
         </div>
       </nav>
     </>
