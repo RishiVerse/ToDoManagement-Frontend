@@ -1,16 +1,13 @@
-export const Footer = () => {
+import React from "react";
+
+const FooterComponent = () => {
   return (
-    <>
-      <nav className="navbar bg-dark">
-        <div className="container-fluid">
-          <p
-            className="navbar-brand text-white"
-            style={{ textAlign: "center" , margin: "auto" }}
-          >
-            All Rights Reserved 2024
-          </p>
-        </div>
-      </nav>
-    </>
+    <div>
+      <footer className="footer">
+        <span>All rights Reserved 2023</span>
+      </footer>
+    </div>
   );
 };
+
+export default FooterComponent;

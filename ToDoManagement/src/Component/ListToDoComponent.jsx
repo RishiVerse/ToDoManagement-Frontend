@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllToDos } from "../Service/ToDoService";
+import { getAllToDos, removeToDos } from "../Service/ToDoService";
 import { useNavigate } from "react-router-dom";
 
 const ListTodo = () => {
@@ -10,6 +10,15 @@ const ListTodo = () => {
   }, []);
 
   const navigation = useNavigate();
+
+  // Delete Todo
+
+  function deleteTodo(id) {
+    removeToDos(id).then((response) => {
+      listTodos();
+    });
+  }
+
   //! Adding  todo
   function addToDo() {
     navigation("/add-todos");
@@ -31,7 +40,7 @@ const ListTodo = () => {
     setToDo(updatedToDo);
   };
 
-  const [theme, setTheme] = useState(true);
+  const [theme, setTheme] = useState(false);
 
   // Change Theme of the Table
 
@@ -59,7 +68,7 @@ const ListTodo = () => {
           Add Todo
         </button>
         <table
-          className={`table table-bordered table-stripped ${
+          className={`table bdr table-bordered table-stripped ${
             theme ? "table-dark" : "table-light"
           }`}
         >
@@ -119,8 +128,16 @@ const ListTodo = () => {
                     </button>
                   )}
 
-                  <button type="button" className="btn btn-danger">
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => deleteTodo(todo.id)}
+                    style={{ marginRight: "5px" }}
+                  >
                     Delete
+                  </button>
+                  <button type="button" className="btn btn-primary">
+                    Update
                   </button>
                 </td>
               </tr>
