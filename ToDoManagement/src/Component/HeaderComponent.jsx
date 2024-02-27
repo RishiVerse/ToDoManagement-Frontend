@@ -7,6 +7,11 @@ export const Header = () => {
             To Do Management Portal
           </a>
         </div>
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav">
+            <li className="nav-item"></li>
+          </ul>
+        </div>
       </nav>
     </>
   );

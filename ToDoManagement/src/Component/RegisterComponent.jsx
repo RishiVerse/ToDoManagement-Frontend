@@ -1,30 +1,22 @@
 import { useState } from "react";
-import { register } from "../Service/ToDoService";
+import { register } from "../Service/AuthService";
 
 const Register = () => {
-  const [name, setName] = useState();
-  const [username, setUsername] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
-  function namehandle(e) {
-    setName(e.target.value);
-  }
-  function usernamehandle(e) {
-    setUsername(e.target.value);
-  }
-  function emailhandle(e) {
-    setEmail(e.target.value);
-  }
-  function passwordhandle(e) {
-    setPassword(e.target.value);
-  }
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   function submitEmployee(e) {
     e.preventDefault();
-
-    const registerUser = { name, username, email, password };
-    register(registerUser);
+    const reg = { name, username, email, password };
+    register(reg)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
@@ -41,21 +33,21 @@ const Register = () => {
                 <label className="form-label">Name</label>
                 <input
                   type="text"
-                  // name="name"
-                  //value={name}
-                  onChange={namehandle}
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="form-control"
-                  id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                 />
               </div>
               <div className="mb-3">
                 <label className="form-label">Username</label>
                 <input
-                  type="email"
+                  type="text"
+                  name="username"
+                  value={username}
                   className="form-control"
-                  onChange={usernamehandle}
-                  id="exampleInputEmail1"
+                  onChange={(e) => setUsername(e.target.value)}
                   aria-describedby="emailHelp"
                 />
               </div>
@@ -65,9 +57,10 @@ const Register = () => {
                 </label>
                 <input
                   type="email"
-                  onChange={emailhandle}
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="form-control"
-                  id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                 />
               </div>
@@ -77,15 +70,16 @@ const Register = () => {
                 </label>
                 <input
                   type="password"
-                  onChange={passwordhandle}
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="form-control"
-                  id="exampleInputPassword1"
                 />
               </div>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <button
                   type="submit"
-                  onClick={submitEmployee}
+                  onClick={(e) => submitEmployee(e)}
                   className="btn btn-primary"
                   style={{ justifyContent: "center" }}
                 >

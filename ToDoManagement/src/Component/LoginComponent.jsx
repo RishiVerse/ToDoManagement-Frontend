@@ -1,27 +1,31 @@
 import { useNavigate } from "react-router-dom";
-import { login } from "../Service/ToDoService";
+import { login, storeToken } from "../Service/AuthService";
 import { useState } from "react";
 
 const Login = () => {
-  const [usernameOrEmail, setUsernameOrEmail] = useState();
-  const [password, setPassword] = useState();
+  const [emailOrUsername, setEmailOrUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
   function usernameoremailhandle(e) {
-    setUsernameOrEmail(e.target.value);
+    setEmailOrUsername(e.target.value);
   }
 
   function passwordhandle(e) {
     setPassword(e.target.value);
   }
 
-  function aubmitlogin(e) {
+  function submitlogin(e) {
     e.preventDefault();
 
-    const log = { usernameOrEmail, password };
+    const log = { emailOrUsername, password };
 
-    login(log).then((response) => {
+    // console.log(log);
+
+    login(emailOrUsername, password).then((response) => {
+      const token = "Basic" + window.btoa(emailOrUsername + ":" + password);
+      storeToken(token);
       console.log(response.data);
       navigate("/api/todos");
     });
@@ -51,12 +55,11 @@ const Login = () => {
                   type="password"
                   onChange={passwordhandle}
                   className="form-control"
-                  id="exampleInputPassword1"
                 />
               </div>
               <button
                 type="submit"
-                onClick={aubmitlogin}
+                onClick={(e) => submitlogin(e)}
                 className="btn btn-primary"
               >
                 Submit
